@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <title>Find My Kee</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+
+<body class="landing">
+
+    <!-- Page Wrapper -->
+    <div id="page-wrapper">
+
+        <!-- Header -->
+        <header id="header" class="alt">
+            <h1><a href="index.html">Find My Kee</a></h1>
+            <nav id="nav">
+                <ul>
+                    <li class="special">
+                        <a href="#menu" class="menuToggle"><span>Menu</span></a>
+                        <div id="menu">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="allItems.html">Our Products</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main -->
+        <article id="main">
+            <header>
+                <h2>Purchase Trump 2020 Kee:</h2>
+                <p>Check out with Paypal, credit, or debit card. Item will be shipped for free to address given at
+                    checkout.</p>
+            </header>
+            <section class="wrapper style5">
+
+
+                        <!-- Content -->
+                        <section id="content">
+                            <div style="display: flex; justify-content: center">
+                                <div>
+                                    <input readonly
+                                        style="text-align:center; background: white; font-weight:bold; font-size:25px;"
+                                        name="itemname" type="text" value='Trump 2020 Kee' />
+                                    <div style="display: flex; justify-content: center">
+                                        <img height="200px;" src="images/trump.JPG">
+                                    </div>
+                                    <div style="display:flex; justify-content: center">
+                                        <span>Quantity: </span>
+                                        <input id="quant" style="margin-left:10px; width:100px; color:black" type="number" value="1" onchange="quantChanged()"  />
+                                    </div>
+                                    <div style="display:flex; justify-content: center">
+                                        <input readonly name="itemcost" id="itemcost" style="width:30%; min-width: 150px; float:left; background: white; color: green; font-size:20px; " type="text" value="$14.99" />
+                                    </div>
+                                    <div class='image' style="display: flex; justify-content: center; margin-top:20px;">
+                                        <div id="paypal-button-container"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!--<hr style="border: dashed 3px;" /> -->
+                        </section>
+
+            </section>
+        </article>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <ul class="icons">
+                <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+                <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+            </ul>
+            <ul class="copyright">
+                <li>&copy; 2019. Seth Kitchen. </li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=AYPMvYV_nRqi3vBArX3nMxrHpQj6Wn5o3UFH_1FDizHzN_I2UDia4O-LcKhExPliAS-w-wcUuaGCftW_&currency=USD">
+        </script>
+    <script>
+        var purchaseID = 'trump2020key';
+
+        function quantChanged()
+        {
+            window.location="trump.html?quant="+document.getElementById("quant").value;
+        }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            console.log(urlParams);
+            const myParam = urlParams.get('quant');
+            console.log(myParam);
+            if(myParam!=null)
+            {
+                document.getElementById("quant").value=myParam;
+                document.getElementById("itemcost").value="$"+parseInt(myParam)*14.99;
+            }
+        }
+
+        paypal.Buttons({
+            createOrder: function (data, actions) {
+                // Set up the transaction
+                return actions.order.create({
+                    purchase_units: [{
+                        reference_id: "trump2020key",
+                        description: "Bluetooth keychain with praise for Donald Trump in the 2020 election.",
+                        amount: {
+                            currency_code: "USD",
+                            value:  document.getElementById("itemcost").value.replace('$','')
+                        }
+                    }]
+                });
+            },
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (details) {
+                    alert("Transaction completed by " + details.payer.name.given_name);
+
+                    // Call your server to save the transaction
+                    /*return fetch("/payment/paypal-transaction-complete", {
+                        method: 'post',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            orderID: data.orderID
+                        })
+                    }).then(function (res) {
+                        window.location = '/options';
+                    });*/
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
+
+</body>
+
+</html>
