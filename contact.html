@@ -42,7 +42,7 @@
         <!-- Main -->
         <article id="main">
             <header>
-                <h2>Purchase Plain White Kee:</h2>
+                <h2>Contact Us:</h2>
             </header>
             <section class="wrapper style5">
 
@@ -51,26 +51,14 @@
                         <section id="content">
                             <div style="display: flex; justify-content: center">
                                 <div>
-                                    <input readonly
-                                        style="text-align:center; background: white; font-weight:bold; font-size:25px;"
-                                        name="itemname" type="text" value='Plain White Kee' />
-                                    <div style="display: flex; justify-content: center">
-                                        <img height="200px;" src="images/180deg.jpg">
-                                    </div>
-                                    <div style="display:flex; justify-content: center">
-                                        <span>Quantity: </span>
-                                        <input id="quant" style="margin-left:10px; width:100px; color:black" type="number" value="1" onchange="quantChanged()"  />
-                                    </div>
-                                    <div style="display:flex; justify-content: center">
-                                        <input readonly name="itemcost" id="itemcost" style="width:30%; min-width: 150px; float:left; background: white; color: green; font-size:20px; " type="text" value="$14.99" />
-                                    </div>
-                                    <div class='image' style="display: flex; justify-content: center; margin-top:20px;">
-                                        <div id="paypal-button-container"></div>
-                                    </div>
+                                   <p><strong>Address</strong></p>
+                                   <p>Robert E. Plaster Center, Springfield, MO 65806</p>
+                                   <p><strong>Phone</strong></p>
+                                   <p>(636) 579-653 five</p>
+                                   <p><strong>Email</strong></p>
+                                   <p>koolseth28 [at] gmail.com</p>
                                 </div>
                             </div>
-
-
 
                             <!--<hr style="border: dashed 3px;" /> -->
                         </section>
@@ -103,11 +91,11 @@
         src="https://www.paypal.com/sdk/js?client-id=AYPMvYV_nRqi3vBArX3nMxrHpQj6Wn5o3UFH_1FDizHzN_I2UDia4O-LcKhExPliAS-w-wcUuaGCftW_&currency=USD">
         </script>
     <script>
-        var purchaseID = 'plainwhitekey';
+        var purchaseID = 'customkey';
 
         function quantChanged()
         {
-            window.location="plainwhite.html?quant="+document.getElementById("quant").value;
+            window.location="custom.html?quant="+document.getElementById("quant").value;
         }
 
         window.onload = function() {
@@ -118,7 +106,7 @@
             if(myParam!=null)
             {
                 document.getElementById("quant").value=myParam;
-                document.getElementById("itemcost").value="$"+parseInt(myParam)*14.99;
+                document.getElementById("itemcost").value="$"+parseInt(myParam)*999.99;
             }
         }
 
@@ -127,8 +115,8 @@
                 // Set up the transaction
                 return actions.order.create({
                     purchase_units: [{
-                        reference_id: "plainwhitekey",
-                        description: "Bluetooth keychain without branding.",
+                        reference_id: "customkey",
+                        description: "Bluetooth keychain with custom branding.",
                         amount: {
                             currency_code: "USD",
                             value:  document.getElementById("itemcost").value.replace('$','')
