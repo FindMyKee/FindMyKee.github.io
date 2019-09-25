@@ -122,31 +122,7 @@
     <script src="https://js.stripe.com/v3"></script>
     <script>
 
-        function quantChanged()
-        {
-            window.location="plainwhite.html?quant="+document.getElementById("quant").value;
-        }
-
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            console.log(urlParams);
-            const myParam = urlParams.get('quant');
-            console.log(myParam);
-            if(myParam!=null)
-            {
-                document.getElementById("quant").value=myParam;
-                document.getElementById("itemcost").value="$"+parseInt(myParam)*14.99;
-            }
-            ribbon=document.getElementById("timer");
-            var today = new Date();
-            var tomorrow = new Date();
-            tomorrow.setDate(today.getDate()+1);
-            tomorrow.setHours(0,0,0,0);
-            freeShipTime=tomorrow;
-            setInterval(updateRibbon, 1000);
-        }
-
-        (function() {
+        (function () {
             var stripe = Stripe('pk_live_FumJoOhlsyEJ7PiO9kffN1jI');
 
             var checkoutButton = document.getElementById('checkout-button-sku_FsOFJHyIFf36Tr');
@@ -154,79 +130,93 @@
                 // When the customer clicks on the button, redirect
                 // them to Checkout.
                 stripe.redirectToCheckout({
-                items: [{sku: 'sku_FsOFJHyIFf36Tr', quantity: parseInt(document.getElementById("quant").value)}],
+                    items: [{ sku: 'sku_FsOFJHyIFf36Tr', quantity: parseInt(document.getElementById("quant").value) }],
 
-                // Do not rely on the redirect to the successUrl for fulfilling
-                // purchases, customers may not always reach the success_url after
-                // a successful payment.
-                // Instead use one of the strategies described in
-                // https://stripe.com/docs/payments/checkout/fulfillment
-                successUrl: 'https://www.findmykee.com/success.html',
-                cancelUrl: 'https://www.findmykee.com/',
+                    // Do not rely on the redirect to the successUrl for fulfilling
+                    // purchases, customers may not always reach the success_url after
+                    // a successful payment.
+                    // Instead use one of the strategies described in
+                    // https://stripe.com/docs/payments/checkout/fulfillment
+                    successUrl: 'https://www.findmykee.com/success.html',
+                    cancelUrl: 'https://www.findmykee.com/',
                 })
-                .then(function (result) {
-                if (result.error) {
-                    // If `redirectToCheckout` fails due to a browser or network
-                    // error, display the localized error message to your customer.
-                    var displayError = document.getElementById('error-message');
-                    displayError.textContent = result.error.message;
-                }
-                });
+                    .then(function (result) {
+                        if (result.error) {
+                            // If `redirectToCheckout` fails due to a browser or network
+                            // error, display the localized error message to your customer.
+                            var displayError = document.getElementById('error-message');
+                            displayError.textContent = result.error.message;
+                        }
+                    });
             });
         })();
 
+        function quantChanged() {
+            window.location = "plainwhite.html?quant=" + document.getElementById("quant").value;
+        }
+
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            console.log(urlParams);
+            const myParam = urlParams.get('quant');
+            console.log(myParam);
+            if (myParam != null) {
+                document.getElementById("quant").value = myParam;
+                document.getElementById("itemcost").value = "$" + parseInt(myParam) * 14.99;
+            }
+            ribbon = document.getElementById("timer");
+            var today = new Date();
+            var tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+            tomorrow.setHours(0, 0, 0, 0);
+            freeShipTime = tomorrow;
+            setInterval(updateRibbon, 1000);
+        }
+
         var ribbon;
-			var freeShipTime;
+        var freeShipTime;
 
 
-			function updateRibbon()
-			{
-				// get total seconds between the times
-				var delta = Math.abs(freeShipTime - new Date()) / 1000;
+        function updateRibbon() {
+            // get total seconds between the times
+            var delta = Math.abs(freeShipTime - new Date()) / 1000;
 
-				// calculate (and subtract) whole days
-				var days = Math.floor(delta / 86400);
-				delta -= days * 86400;
+            // calculate (and subtract) whole days
+            var days = Math.floor(delta / 86400);
+            delta -= days * 86400;
 
-				// calculate (and subtract) whole hours
-				var hours = Math.floor(delta / 3600) % 24;
-				delta -= hours * 3600;
+            // calculate (and subtract) whole hours
+            var hours = Math.floor(delta / 3600) % 24;
+            delta -= hours * 3600;
 
-				// calculate (and subtract) whole minutes
-				var minutes = Math.floor(delta / 60) % 60;
-				delta -= minutes * 60;
+            // calculate (and subtract) whole minutes
+            var minutes = Math.floor(delta / 60) % 60;
+            delta -= minutes * 60;
 
-				// what's left is seconds
-				var seconds = Math.round(delta % 60);  // in theory the modulus is not required
+            // what's left is seconds
+            var seconds = Math.round(delta % 60);  // in theory the modulus is not required
 
-				ribbon.innerText="";
-				if(hours<10)
-				{
-					ribbon.innerText+="0"+hours+":";
-				}
-				else
-				{
-					ribbon.innerText+=hours+":";
-				}
-				if(minutes<10)
-				{
-					ribbon.innerText+="0"+minutes+":";
-				}
-				else
-				{
-					ribbon.innerText+=minutes+":";
-				}
-				if(seconds<10)
-				{
-					ribbon.innerText+="0"+seconds;
-				}
-				else
-				{
-					ribbon.innerText+=seconds;
-				}
-			}
+            ribbon.innerText = "";
+            if (hours < 10) {
+                ribbon.innerText += "0" + hours + ":";
+            }
+            else {
+                ribbon.innerText += hours + ":";
+            }
+            if (minutes < 10) {
+                ribbon.innerText += "0" + minutes + ":";
+            }
+            else {
+                ribbon.innerText += minutes + ":";
+            }
+            if (seconds < 10) {
+                ribbon.innerText += "0" + seconds;
+            }
+            else {
+                ribbon.innerText += seconds;
+            }
+        }
     </script>
-
 </body>
 
 </html>
