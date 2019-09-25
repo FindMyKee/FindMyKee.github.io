@@ -147,34 +147,34 @@
             setInterval(updateRibbon, 1000);
         }
 
-        (function() {
-        var stripe = Stripe('pk_live_FumJoOhlsyEJ7PiO9kffN1jI');
+            (function () {
+                var stripe = Stripe('pk_live_FumJoOhlsyEJ7PiO9kffN1jI');
 
-        var checkoutButton = document.getElementById('checkout-button-sku_FsOEdOhtL4tanv');
-        checkoutButton.addEventListener('click', function () {
-            // When the customer clicks on the button, redirect
-            // them to Checkout.
-            stripe.redirectToCheckout({
-            items: [{sku: 'sku_FsOEdOhtL4tanv', quantity: parseInt(document.getElementById("quant").value)}],
+                var checkoutButton = document.getElementById('checkout-button-sku_FsOEdOhtL4tanv');
+                checkoutButton.addEventListener('click', function () {
+                    // When the customer clicks on the button, redirect
+                    // them to Checkout.
+                    stripe.redirectToCheckout({
+                        items: [{ sku: 'sku_FsOEdOhtL4tanv', quantity: parseInt(document.getElementById("quant").value) }],
 
-            // Do not rely on the redirect to the successUrl for fulfilling
-            // purchases, customers may not always reach the success_url after
-            // a successful payment.
-            // Instead use one of the strategies described in
-            // https://stripe.com/docs/payments/checkout/fulfillment
-            successUrl: 'https://www.findmykee.com/success.html',
-            cancelUrl: 'https://www.findmykee.com/',
-            })
-            .then(function (result) {
-            if (result.error) {
-                // If `redirectToCheckout` fails due to a browser or network
-                // error, display the localized error message to your customer.
-                var displayError = document.getElementById('error-message');
-                displayError.textContent = result.error.message;
-            }
-            });
-        });
-        })();
+                        // Do not rely on the redirect to the successUrl for fulfilling
+                        // purchases, customers may not always reach the success_url after
+                        // a successful payment.
+                        // Instead use one of the strategies described in
+                        // https://stripe.com/docs/payments/checkout/fulfillment
+                        successUrl: 'https://www.findmykee.com/success.html',
+                        cancelUrl: 'https://www.findmykee.com/',
+                    })
+                        .then(function (result) {
+                            if (result.error) {
+                                // If `redirectToCheckout` fails due to a browser or network
+                                // error, display the localized error message to your customer.
+                                var displayError = document.getElementById('error-message');
+                                displayError.textContent = result.error.message;
+                            }
+                        });
+                });
+            })();
 
         var ribbon;
         var freeShipTime;
