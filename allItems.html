@@ -36,6 +36,16 @@
 						</nav>
 					</header>
 
+                    
+            <div class="corner-ribbon top-left turquoise shadow">
+                    <span>
+                        Free Shipping for
+                    </span>
+                    <span id="timer">
+
+                    </span>
+                </div>
+
 		<!-- Main -->
 		<article id="main">
 			<header>
@@ -141,7 +151,69 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+			
+			var ribbon;
+			var freeShipTime;
+			window.onload= function()
+			{
+				ribbon=document.getElementById("timer");
+				var today = new Date();
+				var tomorrow = new Date();
+				tomorrow.setDate(today.getDate()+1);
+				tomorrow.setHours(0,0,0,0);
+				freeShipTime=tomorrow;
+				setInterval(updateRibbon, 1000);
+			}
 
+			function updateRibbon()
+			{
+				// get total seconds between the times
+				var delta = Math.abs(freeShipTime - new Date()) / 1000;
+
+				// calculate (and subtract) whole days
+				var days = Math.floor(delta / 86400);
+				delta -= days * 86400;
+
+				// calculate (and subtract) whole hours
+				var hours = Math.floor(delta / 3600) % 24;
+				delta -= hours * 3600;
+
+				// calculate (and subtract) whole minutes
+				var minutes = Math.floor(delta / 60) % 60;
+				delta -= minutes * 60;
+
+				// what's left is seconds
+				var seconds = Math.round(delta % 60);  // in theory the modulus is not required
+
+				ribbon.innerText="";
+				if(hours<10)
+				{
+					ribbon.innerText+="0"+hours+":";
+				}
+				else
+				{
+					ribbon.innerText+=hours+":";
+				}
+				if(minutes<10)
+				{
+					ribbon.innerText+="0"+minutes+":";
+				}
+				else
+				{
+					ribbon.innerText+=minutes+":";
+				}
+				if(seconds<10)
+				{
+					ribbon.innerText+="0"+seconds;
+				}
+				else
+				{
+					ribbon.innerText+=seconds;
+				}
+			}
+
+			</script>
 
 </body>
 

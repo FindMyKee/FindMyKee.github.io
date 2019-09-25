@@ -39,6 +39,16 @@
             </nav>
         </header>
 
+        
+					<div class="corner-ribbon top-left turquoise shadow">
+                            <span>
+                                Free Shipping for
+                            </span>
+                            <span id="timer">
+    
+                            </span>
+                        </div>
+
         <!-- Main -->
         <article id="main">
             <header>
@@ -47,21 +57,21 @@
             <section class="wrapper style5">
 
 
-                        <!-- Content -->
-                        <section id="content">
-                            <div style="display: flex; justify-content: center">
-                                <div>
-                                   <p><strong>Address</strong></p>
-                                   <p>Robert E. Plaster Center, Springfield, MO 65806</p>
-                                   <p><strong>Phone</strong></p>
-                                   <p>(636) 579-653 five</p>
-                                   <p><strong>Email</strong></p>
-                                   <p>koolseth28 [at] gmail.com</p>
-                                </div>
-                            </div>
+                <!-- Content -->
+                <section id="content">
+                    <div style="display: flex; justify-content: center">
+                        <div>
+                            <p><strong>Address</strong></p>
+                            <p>Robert E. Plaster Center, Springfield, MO 65806</p>
+                            <p><strong>Phone</strong></p>
+                            <p>(636) 579-653 five</p>
+                            <p><strong>Email</strong></p>
+                            <p>koolseth28 [at] gmail.com</p>
+                        </div>
+                    </div>
 
-                            <!--<hr style="border: dashed 3px;" /> -->
-                        </section>
+                    <!--<hr style="border: dashed 3px;" /> -->
+                </section>
 
             </section>
         </article>
@@ -69,7 +79,8 @@
         <!-- Footer -->
         <footer id="footer">
             <ul class="icons">
-                <li><a href="mailto:koolseth28@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+                <li><a href="mailto:koolseth28@gmail.com" class="icon solid fa-envelope"><span
+                            class="label">Email</span></a></li>
             </ul>
             <ul class="copyright">
                 <li>&copy; 2019. Seth Kitchen. </li>
@@ -87,62 +98,61 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
-    <script
-        src="https://www.paypal.com/sdk/js?client-id=AYPMvYV_nRqi3vBArX3nMxrHpQj6Wn5o3UFH_1FDizHzN_I2UDia4O-LcKhExPliAS-w-wcUuaGCftW_&currency=USD">
-        </script>
+
     <script>
-        var purchaseID = 'customkey';
 
-        function quantChanged()
-        {
-            window.location="custom.html?quant="+document.getElementById("quant").value;
+        var ribbon;
+        var freeShipTime;
+        window.onload = function () {
+            ribbon = document.getElementById("timer");
+            var today = new Date();
+            var tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+            tomorrow.setHours(0, 0, 0, 0);
+            freeShipTime = tomorrow;
+            setInterval(updateRibbon, 1000);
         }
 
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            console.log(urlParams);
-            const myParam = urlParams.get('quant');
-            console.log(myParam);
-            if(myParam!=null)
-            {
-                document.getElementById("quant").value=myParam;
-                document.getElementById("itemcost").value="$"+parseInt(myParam)*999.99;
+        function updateRibbon() {
+            // get total seconds between the times
+            var delta = Math.abs(freeShipTime - new Date()) / 1000;
+
+            // calculate (and subtract) whole days
+            var days = Math.floor(delta / 86400);
+            delta -= days * 86400;
+
+            // calculate (and subtract) whole hours
+            var hours = Math.floor(delta / 3600) % 24;
+            delta -= hours * 3600;
+
+            // calculate (and subtract) whole minutes
+            var minutes = Math.floor(delta / 60) % 60;
+            delta -= minutes * 60;
+
+            // what's left is seconds
+            var seconds = Math.round(delta % 60);  // in theory the modulus is not required
+
+            ribbon.innerText = "";
+            if (hours < 10) {
+                ribbon.innerText += "0" + hours + ":";
+            }
+            else {
+                ribbon.innerText += hours + ":";
+            }
+            if (minutes < 10) {
+                ribbon.innerText += "0" + minutes + ":";
+            }
+            else {
+                ribbon.innerText += minutes + ":";
+            }
+            if (seconds < 10) {
+                ribbon.innerText += "0" + seconds;
+            }
+            else {
+                ribbon.innerText += seconds;
             }
         }
 
-        paypal.Buttons({
-            createOrder: function (data, actions) {
-                // Set up the transaction
-                return actions.order.create({
-                    purchase_units: [{
-                        reference_id: "customkey",
-                        description: "Bluetooth keychain with custom branding.",
-                        amount: {
-                            currency_code: "USD",
-                            value:  document.getElementById("itemcost").value.replace('$','')
-                        }
-                    }]
-                });
-            },
-            onApprove: function (data, actions) {
-                return actions.order.capture().then(function (details) {
-                    alert("Transaction completed by " + details.payer.name.given_name);
-
-                    // Call your server to save the transaction
-                    /*return fetch("/payment/paypal-transaction-complete", {
-                        method: 'post',
-                        headers: {
-                            'content-type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            orderID: data.orderID
-                        })
-                    }).then(function (res) {
-                        window.location = '/options';
-                    });*/
-                });
-            }
-        }).render('#paypal-button-container');
     </script>
 
 </body>
