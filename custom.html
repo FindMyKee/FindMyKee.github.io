@@ -65,7 +65,7 @@
                                         style="text-align:center; background: white; font-weight:bold; font-size:25px;"
                                         name="itemname" type="text" value='Custom Kee' />
                                     <div style="display: flex; justify-content: center">
-                                        <img height="200px;" src="images/180deg.webp">
+                                        <img class="lozad" height="200px;" data-src="images/180deg.webp">
                                     </div>
                                     <div style="display:flex; justify-content: center">
                                         <span>Quantity: </span>
@@ -120,8 +120,11 @@
     <script src="assets/js/main.js"></script>
      <!-- Load Stripe.js on your website. -->
      <script src="https://js.stripe.com/v3"></script>
+     <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
      <script>
- 
+        const observer = lozad();
+        observer.observe();
+
          (function () {
              var stripe = Stripe('pk_live_FumJoOhlsyEJ7PiO9kffN1jI');
  

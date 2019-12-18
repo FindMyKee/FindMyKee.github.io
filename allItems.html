@@ -63,7 +63,7 @@
                                     <span style="text-align:center; background: white; font-weight:bold; font-size:25px;">Trump 2020 Kee </span>
                                 </div>
                                 <div style="display: flex; justify-content: center">
-                                    <img height="300px;" src="images/trump.webp">
+                                    <img class="lozad" height="300px;" data-src="images/trump.webp">
                                 </div>
                                 <div style="display: flex; justify-content: center">
                                     <input style="float:left; background:white;" readonly name="itemtags" type="hidden" value='2020, election, donald, trump' />
@@ -78,7 +78,7 @@
                                     <span style="text-align:center; background: white; font-weight:bold; font-size:25px;">Plain White Kee </span>
                                 </div>
                                 <div style="display: flex; justify-content: center">
-                                    <img height="300px;" src="images/180deg.webp">
+                                    <img class="lozad" height="300px;" data-src="images/180deg.webp">
                                 </div>
                                 <div style="display: flex; justify-content: center; margin-top:10px;">
                                     <input style="float:left; background:white;" readonly name="itemtags" type="hidden" value='plain, white' />
@@ -93,7 +93,7 @@
                                     <span style="text-align:center; width:250px; background: white; font-weight:bold; font-size:25px;">Create Your Own Kee (100 Count) </span>
                                 </div>
                                 <div style="display: flex; justify-content: center;">
-                                    <img height="300px;" src="images/180deg.webp">
+                                    <img class="lozad" height="300px;" data-src="images/180deg.webp">
                                 </div>
                                 <div style="display: flex; justify-content: center; margin-top:-25px;">
                                     <input style="float:left; background:white;" readonly name="itemtags" type="hidden" value='create, your, own, diy' />
@@ -135,9 +135,12 @@
     <script src="assets/js/browser.min.js"></script>
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
     <script>
-			
+			const observer = lozad();
+			observer.observe();
+
 			var ribbon;
 			var freeShipTime;
 			window.onload= function()
