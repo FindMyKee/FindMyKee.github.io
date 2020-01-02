@@ -155,7 +155,7 @@
          })();
  
          function quantChanged() {
-             window.location = "plainwhite.html?quant=" + document.getElementById("quant").value;
+             window.location = "custom.html?quant=" + document.getElementById("quant").value;
          }
  
          window.onload = function () {
@@ -165,7 +165,7 @@
              console.log(myParam);
              if (myParam != null) {
                  document.getElementById("quant").value = myParam;
-                 document.getElementById("itemcost").value = "$" + parseInt(myParam) * 14.99;
+                 document.getElementById("itemcost").value = "$" + parseInt(myParam) * 999.99;
              }
              ribbon = document.getElementById("timer");
              var today = new Date();
