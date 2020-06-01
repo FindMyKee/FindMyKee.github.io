@@ -87,7 +87,10 @@
 					<section id="two" class="wrapper alt style2">
 						<section class="spotlight">
 							<div class="image">
-								<img class="lozad" data-src="images/firstscreen.webp" alt="My Kee Pairing Screen" />
+								<picture>
+									<source type="image/webp" data-srcset="images/firstscreen.webp" />
+									<img alt="My Kee Pairing Screen" class="lazy" data-srcset="images/firstscreen.jpg" />
+								</picture>
 							</div>
 							<div class="image" style="margin-left:20px; margin-right:20px;">
 								<h2 style="text-align: center">Tap the My Kee App To Instantly Find Your Belongings </h2>
@@ -96,39 +99,57 @@
 								</p>
 							</div>
 							<div class="image">
-								<img class="lozad" data-src="images/ringing.webp" alt="My Kee App Map/Ringing Screen" />
+								<picture>
+									<source type="image/webp" data-srcset="images/ringing.webp" />
+									<img alt="My Kee App Map/Ringing Screen" class="lazy" data-srcset="images/ringing.jpg" />
+								</picture>
 							</div>
 						</section>
 						<section class="spotlight">
 							<div class="image">
-								<img class="lozad"  data-src="images/30deg.webp" alt="button on front" />
+								<picture>
+									<source type="image/webp" data-srcset="images/30deg.webp" />
+									<img alt="Button on Front" class="lazy" data-srcset="images/30deg.jpg" />
+								</picture>
 							</div>
 							<div class="image" style="margin-left:20px; margin-right:20px;">
 								<h2 style="text-align: center">My Kee can even find your lost phone. Press the My Kee button to automatically ring your phone.</h2>
 								<p style="text-align: center">Reverse the direction! If you have your keys, but lost your phone, just click the keychain button and your phone will start ringing within range.</p>
 							</div>
 							<div class="image">
-									<img class="lozad" data-src="images/homescreen.webp" alt="calling" />
+								<picture>
+									<source type="image/webp" data-srcset="images/homescreen.webp" />
+									<img alt="Calling" class="lazy" data-srcset="images/homescreen.jpg" />
+								</picture>
 							</div>
 						</section>
 						<section>
 							<div>
 								<div style="display:flex; justify-content: center;">
-									<img class="lozad" data-src="images/devices.webp" style="max-width:100%" alt="all devices" />
+									<picture>
+										<source type="image/webp" data-srcset="images/devices.webp" />
+										<img alt="All Devices" class="lazy" data-srcset="images/devices.jpg" />
+									</picture>
 								</div>
 								<p style="text-align: center">My Kee works with all versions of Android, iPhone, and iPad</p>
 							</div>
 						</section>
 						<section class="spotlight">
 							<div class="image">
-								<img class="lozad" data-src="images/90deg.webp" alt="thin 90 degree view" />
+								<picture>
+									<source type="image/webp" data-srcset="images/90deg.webp" />
+									<img alt="Thin 90 degree view" class="lazy" data-srcset="images/90deg.jpg" />
+								</picture>
 							</div>
 							<div class="image" style="margin-left:20px; margin-right:20px;">
 								<h2 style="text-align: center">Use My Kee for all of your valuables.</h2>
 								<p style="text-align: center">My Kee is ultra thin with dimensions 45mm x 45mm x 3.2mm. Fits on most keychain rings and ships with tie connector for handbags, suitcases, and more.</p>
 							</div>
 							<div class="image">
-									<img class="lozad" data-src="images/strap.webp" alt="strap for other attachments" />
+								<picture>
+									<source type="image/webp" data-srcset="images/strap.webp" />
+									<img alt="Strap for other attachments" class="lazy" data-srcset="images/strap.jpg" />
+								</picture>
 							</div>
 						</section> 
 					</section>
@@ -165,11 +186,13 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+			<script src="assets/js/lazyload.min.js"></script>
 			<script>
 			
-			const observer = lozad();
-			observer.observe();
+			var lazyLoadInstance = new LazyLoad({
+				elements_selector: ".lazy"
+				// ... more custom settings?
+			});
 
 			var ribbon;
 			var freeShipTime;
