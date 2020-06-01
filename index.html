@@ -225,25 +225,11 @@
 
 		$(function () {
 			// ---- this would be the plugin ----
-			// special event for non-preventDefault
 			jQuery.event.special.touchstart = {
-				setup: function (_, ns, handle) {
-					if (ns.includes("noPreventDefault")) {
-						console.log("passive events");
-						this.addEventListener("touchstart", handle, { passive: true });
-					} else {
-						console.log("non-passive events");
-						return false;
-					}
+				setup: function( _, ns, handle ) {
+					this.addEventListener("touchstart", handle, { passive: true });
 				}
 			};
-			// -----------------------------------
-
-			// set up a touchevent for the box
-			$("html").on("touchstart.noPreventDefault", function () {
-				console.log(event.type);
-				event.preventDefault();
-			});
 		});
 
 		function updateRibbon() {
