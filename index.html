@@ -200,6 +200,7 @@
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
 	<script src="assets/js/lazyload.min.js"></script>
+	<script src="assets/js/modernizr-custom.js"></script>
 	<script>
 
 		var lazyLoadInstance = new LazyLoad({
@@ -224,13 +225,14 @@
 		}
 
 		$(function () {
-			// ---- this would be the plugin ----
-			jQuery.event.special.touchstart = {
-				setup: function( _, ns, handle ) {
-					this.addEventListener("touchstart", handle, { passive: true });
-				}
-			};
+			document.addEventListener("touchstart", function(e) {
+				console.log(e.defaultPrevented);  // will be false
+				e.preventDefault();   // does nothing since the listener is passive
+				console.log(e.defaultPrevented);  // still false
+			}, Modernizr.passiveeventlisteners ? {passive: true} : false);
 		});
+
+		
 
 		function updateRibbon() {
 			// get total seconds between the times
