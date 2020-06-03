@@ -188,7 +188,7 @@
                 var sourceWebP = "https://i.ytimg.com/vi_webp/"+embedID+"/sddefault.webp";
                 var sourceJpg =  "https://img.youtube.com/vi/" + embedID + "/sddefault.jpg";
                 var image = new Image();
-                console.log(Modernizr.webp);
+                image.alt = 'MyKee Promo Video Thumbnail';
                 if(Modernizr.webp!=null) {
                     image.src = sourceWebP;
                 }
