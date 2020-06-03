@@ -16,7 +16,6 @@
     <link rel="preload" href="assets/css/main.css" as="style" onload="this.onload=null; this.rel='stylesheet'" />
     <link rel="canonical" href="https://www.findmykee.com/promotional-video" />
     <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="import" href="youtube-embed.html">
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 </head>
@@ -58,7 +57,7 @@
         <!-- Main -->
         <article id="main">
             <header>
-                <h2>Contact Us:</h2>
+                <h2>What is MyKee?</h2>
             </header>
             <section class="wrapper style5">
 
@@ -98,6 +97,111 @@
     <script src="assets/js/breakpoints.min.js" defer></script>
     <script src="assets/js/util.js" defer></script>
     <script src="assets/js/main.js" defer></script>
+    <!-- Defines element markup -->
+    <template id="youtubeProto">
+        <style>
+            .youtube {
+                background-color: #000;
+                margin-bottom: 30px;
+                position: relative;
+                padding-top: 56.25%;
+                overflow: hidden;
+                cursor: pointer;
+            }
+
+            .youtube img {
+                width: 100%;
+                top: -16.82%;
+                left: 0;
+                opacity: 0.7;
+            }
+
+            .youtube .play-button {
+                width: 90px;
+                height: 60px;
+                background-color: #333;
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+                z-index: 1;
+                opacity: 0.8;
+                border-radius: 6px;
+            }
+
+            .youtube .play-button:before {
+                content: "";
+                border-style: solid;
+                border-width: 15px 0 15px 26.0px;
+                border-color: transparent transparent transparent #fff;
+            }
+
+            .youtube img,
+            .youtube .play-button {
+                cursor: pointer;
+            }
+
+            .youtube img,
+            .youtube iframe,
+            .youtube .play-button,
+            .youtube .play-button:before {
+                position: absolute;
+            }
+
+            .youtube .play-button,
+            .youtube .play-button:before {
+                top: 50%;
+                left: 50%;
+                transform: translate3d(-50%, -50%, 0);
+            }
+
+            .youtube iframe {
+                height: 100%;
+                width: 100%;
+                top: 0;
+                left: 0;
+            }
+        </style>
+        <div class="youtube">
+            <div class="play-button"></div>
+        </div>
+    </template>
+
+    <script type="module">
+
+        class YoutubeProto extends HTMLElement {
+            constructor() {
+                super();
+                // Refers to the "importer", which is index.html
+                let importDoc = document;
+                let shadowRoot = this.attachShadow({ mode: "open" });
+                let template = importDoc.getElementById("youtubeProto");
+                shadowRoot.appendChild(template.content.cloneNode(true));
+                console.log(shadowRoot);
+                var embed = this.getAttribute('embed');
+                var video = shadowRoot.querySelectorAll(".youtube")[0];
+                console.log(embed);
+                console.log(video);
+                this.doTheThing(embed, video);
+            }
+
+            doTheThing(embedID, videoElem) {
+                var source = "https://img.youtube.com/vi/" + embedID + "/sddefault.jpg";
+                var image = new Image();
+                image.src = source;
+                image.addEventListener("load", function () {
+                    videoElem.appendChild(image);
+                });
+                videoElem.addEventListener("click", function () {
+                    var iframe = document.createElement("iframe");
+                    iframe.setAttribute("frameborder", "0");
+                    iframe.setAttribute("allowfullscreen", "");
+                    iframe.setAttribute("src", "https://www.youtube.com/embed/" + embedID + "?rel=0&showinfo=0&autoplay=1");
+                    this.innerHTML = "";
+                    this.appendChild(iframe);
+                });
+            }
+        }
+
+        window.customElements.define("youtube-embed", YoutubeProto);
+    </script>
     <script defer>
 
         var ribbon;
